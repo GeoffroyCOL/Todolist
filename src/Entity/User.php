@@ -5,10 +5,17 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
+#[UniqueEntity(
+    fields: ['username'],
+    errorPath: 'port',
+    message: 'Ce pseudo est déjà utilisé.',
+)]
 class User implements UserInterface
 {
     /**
@@ -21,6 +28,14 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
+    #[Assert\Length(
+        min: 4,
+        minMessage: 'Votre pseudo doit contenir au minimum {{ limit }} caractères.'
+        
+    )]
+    #[Assert\NotBlank(
+        message: "Ce champs ne peut pas être vide"
+    )]
     private $username;
 
     /**
@@ -32,6 +47,13 @@ class User implements UserInterface
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
+    #[Assert\Regex(
+        pattern: "/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,}$/",
+        message: "Votre mot de passe n'est pas au bon format.",
+    )]
+    #[Assert\NotBlank(
+        message: "Ce champs ne peut pas être vide"
+    )]
     private $password;
 
     /**
@@ -47,11 +69,18 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Assert\Email(
+        message: "Votre email {{ value }} n'est pas valide.",
+    )]
+    #[Assert\NotBlank(
+        message: "Ce champs ne peut pas être vide"
+    )]
     private $email;
 
     public function __construct()
     {
         $this->createdAt = new \DateTime();
+        $this->roles = ["ROLE_ADMIN_LIST"];
     }
     
     /**
