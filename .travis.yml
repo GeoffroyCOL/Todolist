@@ -29,7 +29,6 @@ install:
   - php bin/console hautelook:fixtures:load -n --env=test
 
 script:
-  - docker-compose -f docker-compose.yml up -d
-  - docker-compose -f docker-compose.yml ps
+  - docker-compose docker-compose.yml up -d
   - composer install
   - vendor/bin/phpunit --testdox
