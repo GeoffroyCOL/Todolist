@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
+use App\Entity\User;
 
 class LoginListener implements EventSubscriberInterface
 {
@@ -30,7 +31,7 @@ class LoginListener implements EventSubscriberInterface
      */
     public function onLoginSuccess(InteractiveLoginEvent $event)
     {
-        /** @var User */
+        /** @var User*/
         $user = $event->getAuthenticationToken()->getUser();
         $user->setLoginAt(new \DateTime());
         $this->manager->flush();
