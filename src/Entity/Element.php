@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping\InheritanceType;
 use Symfony\Component\Serializer\Annotation\DiscriminatorMap;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=ElementRepository::class)
@@ -140,12 +141,12 @@ abstract class Element
         return $this;
     }
 
-    public function getCreatedBy(): ?User
+    public function getCreatedBy(): ?UserInterface
     {
         return $this->createdBy;
     }
 
-    public function setCreatedBy(?User $createdBy): self
+    public function setCreatedBy(?UserInterface $createdBy): self
     {
         $this->createdBy = $createdBy;
 
