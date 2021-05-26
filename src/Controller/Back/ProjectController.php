@@ -60,7 +60,7 @@ class ProjectController extends AbstractController
      * @param  Project $project
      * @return Response
      */
-    #[Route('/admin/project/edit/{id}', name: 'project.edit')]
+    #[Route('/admin/project/edit/{id}', name: 'project.edit', requirements: ['id' => '\d+'])]
     public function editProject(Request $request, Project $project): Response
     {
         $this->denyAccessUnlessGranted('PROJECT_OWN', $project, 'Vous ne pouvez pas modifier ce projet');
@@ -77,5 +77,19 @@ class ProjectController extends AbstractController
             'form'      => $form->createView(),
             'action'    => 'modifier'
         ]);
+    }
+    
+    /**
+     * @param  Project $project
+     * @return Response
+     */
+    #[Route('/admin/project/delete/{id}', name: 'project.delete', requirements: ['id' => '\d+'])]
+    public function deleteProject(Project $project): Response
+    {
+        $this->denyAccessUnlessGranted('PROJECT_OWN', $project, 'Vous ne pouvez pas supprimer ce projet');
+        $this->projectService->delete($project);
+        $this->addFlash('success', 'Votre projet à bien été supprimé.');
+
+        return $this->redirectToRoute('projects.list');
     }
 }

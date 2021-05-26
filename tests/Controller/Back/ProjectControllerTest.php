@@ -3,6 +3,7 @@
 namespace Tests\Controller\Back;
 
 use App\Repository\UserRepository;
+use Hautelook\AliceBundle\PhpUnit\ReloadDatabaseTrait;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,6 +11,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ProjectControllerTest extends WebTestCase
 {    
+    use ReloadDatabaseTrait;
+
     /**
      * testAccessRouteForProjectControllerWithUserNotConnected
      * Test l'accès aux routes du ProjectController ( Back ) si un utilisateur n'est pas connecté
@@ -91,8 +94,9 @@ class ProjectControllerTest extends WebTestCase
     public function setRouteForProjectControllerNotUserConnected()
     {
         return [
-            "Pour l'ajout d'un nouveau projet"          => ['/admin/project/add', Response::HTTP_FOUND],
-            "Pour la modification d'un nouveau projet"  => ['/admin/project/edit/11', Response::HTTP_FOUND]
+            "Pour l'ajout d'un nouveau projet"  => ['/admin/project/add', Response::HTTP_FOUND],
+            "Pour la modification d'un projet"  => ['/admin/project/edit/11', Response::HTTP_FOUND],
+            "Pour la suppression d'un projet"   => ['/admin/project/delete/11', Response::HTTP_FOUND]
         ];
     }
 
@@ -105,12 +109,11 @@ class ProjectControllerTest extends WebTestCase
     public function setRouteForProjectControllerUserConnected()
     {
         return [
-            "Pour l'ajout d'un nouveau projet"          
-                => ['/admin/project/add', Response::HTTP_OK],
-            "Pour la modification d'un nouveau projet qui m'appartient"  
-                => ['/admin/project/edit/11', Response::HTTP_OK],
-            "Pour la modification d'un nouveau projet qui ne m'appartient pas"  
-                => ['/admin/project/edit/12', Response::HTTP_FORBIDDEN]
+            "Pour l'ajout d'un nouveau projet"                          => ['/admin/project/add', Response::HTTP_OK],
+            "Pour la modification d'un projet qui m'appartient"         => ['/admin/project/edit/11', Response::HTTP_OK],
+            "Pour la modification d'un projet qui ne m'appartient pas"  => ['/admin/project/edit/12', Response::HTTP_FORBIDDEN],
+            "Pour la suppression d'un projet qui m'appartient"          => ['/admin/project/delete/11', Response::HTTP_FOUND],
+            "Pour la suppression d'un projet qui ne m'appartient pas"   => ['/admin/project/delete/12', Response::HTTP_FORBIDDEN]
         ];
     }
 
