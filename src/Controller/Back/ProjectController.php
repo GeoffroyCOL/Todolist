@@ -40,7 +40,7 @@ class ProjectController extends AbstractController
     }
     
     /**
-     * @param  mixed $project
+     * @param  Project $project
      * @return Response
      */
     #[Route('/admin/project/{id}', name: 'project.show', requirements: ['id' => '\d+'])]
