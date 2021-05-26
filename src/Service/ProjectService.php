@@ -29,4 +29,14 @@ class ProjectService
         $this->manager->persist($project);
         $this->manager->flush();
     }
+    
+    /**
+     * @param  Project $project
+     * @return void
+     */
+    public function delete(Project $project): void
+    {
+        $this->manager->remove($project);
+        $this->manager->flush();
+    }
 }
