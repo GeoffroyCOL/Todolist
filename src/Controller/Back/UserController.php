@@ -15,11 +15,11 @@ class UserController extends AbstractController
     public function __construct(private UserService $userService)
     {}
 
-    #[Route('/admin/user/edit/{id}', name: 'user.edit')]
     /**
      * @param  User $user
      * @return Response
      */
+    #[Route('/admin/user/edit/{id}', name: 'user.edit', requirements: ['id' => '\d+'])]
     public function editUser(Request $request, User $user): Response
     {
         $this->denyAccessUnlessGranted('USER_OWN', $user, 'Vous ne pouvez pas modifier ce profil');
@@ -37,8 +37,12 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/user/delete/{id}', name: 'user.delete')]
-    public function deleteUser(User $user)
+    /**
+     * @param  User $user
+     * @return Response
+     */
+    #[Route('/admin/user/delete/{id}', name: 'user.delete', requirements: ['id' => '\d+'])]
+    public function deleteUser(User $user): Response
     {
         $this->denyAccessUnlessGranted('USER_OWN', $user, 'Vous ne pouvez pas supprimer ce profil');
 
