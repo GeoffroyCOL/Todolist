@@ -1,38 +1,55 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Connexion | {{ parent() }}{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+    <section class="container my-3 my-md-5">
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+        <header class="mb-5">
+            <h2 class="display-3 text-uppercase">Connexion</h2>
+        </header>
+
+        {% if error %}
+        <div class="my-4 container alert p-0 alert-dismissible fade show" role="alert">
+            <div class="card card-shadow border-0 rounded-0 bg-light-danger">
+                <div class="card-body border-start border-danger border-3 d-flex justify-content-between">
+                    <p class="mb-0 text-danger">
+                        <i class="me-3 fas fa-exclamation-triangle"></i> 
+                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                    </p>
+                    <button data-bs-dismiss="alert" type="button" class="btn-close text-success" aria-label="Close"></button>
+                </div>
+            </div>
         </div>
-    {% endif %}
+        {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputUsername">Username</label>
-    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
-
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
+        {% if app.user %}
+        <div class="mb-4 alert p-0 alert-dismissible fade show" role="alert">
+            <div class="card card-shadow border-0 rounded-0 bg-light-info">
+                <div class="card-body border-start border-info border-3 d-flex justify-content-between">
+                    <p class="mb-0 text-info">
+                        <span class="me-3"><i class="fas fa-info-circle"></i></span> Vous êtes déjà connecté
+                    </p>
+                </div>
+            </div>
         </div>
-    #}
 
-    <button class="btn btn-lg btn-primary" type="submit">connexion</button>
-</form>
+        {% else %}
+            <form method="post">
+                <div class="mb-3">
+                    <label class="fw-bold" for="inputUsername">Pseudo</label>
+                    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
+                </div>
+
+                <div class="mb-3">
+                    <label class="fw-bold" for="inputPassword">Mot de passe</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                </div>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                <button class="btn-shadow btn btn-secondary btn-sm text-white text-uppercase fw-bold small" type="submit">connexion</button>
+            </form>
+        {% endif %}
+    </section>
 {% endblock %}

@@ -1,16 +1,66 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UserController!{% endblock %}
+{% block title %}Inscription | {{ parent() }}{% endblock %}
 
 {% block body %}
+    <section class="container my-3 my-md-5">
+        <header class="mb-5">
+            <h2 class="display-3 text-uppercase">Inscription</h2>
+        </header>
 
-    {{ form_start(form) }}
+        {% if app.user %}
+            <div class="mb-4 alert p-0 alert-dismissible fade show" role="alert">
+                <div class="card card-shadow border-0 rounded-0 bg-light-info">
+                    <div class="card-body border-start border-info border-3 d-flex justify-content-between">
+                        <p class="mb-0 text-info">
+                            <span class="me-3"><i class="fas fa-info-circle"></i></span> Vous êtes déjà connecté
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="row">
+                <div class="mb-3 col-lg-4 order-lg-1">
+                    <img class="img-fluid" src="../images/register.png" alt="">
+                </div>
 
-        {{ form_row(form.username) }}
-        {{ form_row(form.email) }}
-        {{ form_row(form.password) }}
+                <div class="col-lg-8 order-lg-0">
+                {{ form_start(form) }}
+                    <div class="row">
+                        <div class="col-12 col-md-6 mb-3">
+                            {{ form_label(form.username) }}
+                            {% if form.children.username.vars.valid %}
+                                {{ form_widget(form.username) }}
+                                {% else %} {{ form_widget(form.username, {'attr': {'class': 'is-invalid'}}) }}
+                            {% endif %}
+                            {{ form_help(form.username) }}
+                        </div>
 
-        <button type="submit">inscription</button>
+                        <div class="col-12 col-md-6 mb-3">
+                            {{ form_label(form.password) }}
+                            {% if form.children.password.vars.valid %}
+                                {{ form_widget(form.password) }}
+                                {% else %} {{ form_widget(form.password, {'attr': {'class': 'is-invalid'}}) }}
+                            {% endif %}
+                            {{ form_help(form.password) }}
+                        </div>
 
-    {{ form_end(form) }}
+                        <div class="col-12 mb-3">
+                            {{ form_label(form.email) }}
+                            {% if form.children.email.vars.valid %}
+                                {{ form_widget(form.email) }}
+                                {% else %} {{ form_widget(form.email, {'attr': {'class': 'is-invalid'}}) }}
+                            {% endif %}
+                            {{ form_help(form.email) }}
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-shadow btn btn-secondary btn-sm text-white text-uppercase fw-bold small">inscription</button>
+
+                {{ form_end(form) }}
+                </div>
+            </div>
+        {% endif %}
+        </div>
+    </section>
 {% endblock %}

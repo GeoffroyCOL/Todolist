@@ -1,0 +1,20 @@
+{% set icons = {
+    success: '<i class="fas fa-check"></i>',
+    info:  '<i class="fas fa-info"></i>',
+    danger:  '<i class="fas fa-exclamation-triangle"></i>',
+} %}
+
+{% for label, messages in app.flashes() %}
+    {% for message in messages %}
+        <div class="my-4 container alert p-0 alert-dismissible fade show" role="alert">
+            <div class="card card-shadow border-0 rounded-0 bg-light-{{ label }}">
+                <div class="card-body border-start border-{{ label }} border-3 d-flex justify-content-between">
+                    <p class="mb-0 text-{{ label }}">
+                        <span class="me-3">{{ attribute(icons, label ) | raw }}</span> {{ message }}
+                    </p>
+                    <button data-bs-dismiss="alert" type="button" class="btn-close text-success" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endfor %}
