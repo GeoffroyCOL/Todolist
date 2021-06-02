@@ -11,7 +11,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            {% if component is not defined %}
+            {% if app.user == null %}
                 <li class="nav-item">
                     <a  class="nav-link {% if current_page is defined and current_page == 'inscription' %} active {% endif %}" 
                         href="{{ path('user.register') }}">Inscription</a>

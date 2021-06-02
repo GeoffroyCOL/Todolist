@@ -1,20 +1,45 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
-
+{% block title %}Todolist
+{% endblock %}
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<section class="container sections">
+		<div class="row">
+			<div class="col-12 col-lg-4 m-auto">
+				<h1 class="display-2 text-primary fw-bolder text-uppercase">Todolist</h1>
+				<p>L'application qui simplifie la réalisation de vos projets.</p>
+			</div>
+			<div class="col-12 col-lg-8">
+				<img class="img-fluid" src="../images/todolist.png" alt="">
+			</div>
+		</div>
+	</section>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+	<section class="container sections">
+		<div class="row">
+			<div class="col-12 col-lg-8 order-1 order-lg-0">
+				<img class="img-fluid" src="../images/create.png" alt="">
+			</div>
+			<div class="col-12 col-lg-4 order-0 order-lg-1">
+				<h2 class="display-5 text-uppercase">Projets</h2>
+				<p>Rien de plus simple, inscrivez-vous pour commencer à créer votre premier <strong>projet</strong>.</p>
+				<p>
+					<a 	href="{{ path('user.register') }}" 
+						class="btn btn-secondary fw-bolder text-uppercase btn-shadow text-white">inscription</a>
+				</p>
+			</div>
+		</div>
+	</section>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'E:/Les projets avec Symfony/todolist/todolist/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'E:/Les projets avec Symfony/todolist/todolist/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
-    </ul>
-</div>
+	<section class="container sections">
+		<div class="row">
+			<div class="col-12 col-lg-4">
+				<h2 class="display-5 text-uppercase">Organisation</h2>
+				<p>Associer une ou plusieures <strong>tâches</strong> à réaliser à un de vos projets.</p>
+			</div>
+			<div class="col-12 col-lg-8">
+				<img class="img-fluid" src="../images/organisation.png" alt="">
+			</div>
+		</div>
+	</section>
 {% endblock %}

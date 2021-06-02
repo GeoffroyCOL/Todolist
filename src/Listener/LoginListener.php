@@ -2,16 +2,18 @@
 
 namespace App\Listener;
 
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Http\SecurityEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
-use Symfony\Component\Security\Http\SecurityEvents;
-use App\Entity\User;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
 class LoginListener implements EventSubscriberInterface
 {
     public function __construct(
-        private EntityManagerInterface $manager
+        private EntityManagerInterface $manager,
+        private FlashBagInterface $flash
     )
     {}
 
@@ -24,7 +26,7 @@ class LoginListener implements EventSubscriberInterface
     
     /**
      * onLoginSuccess
-     * Ajout la date de dernière connexion d'un utilisateur
+     * Ajout la date de dernière connexion d'un utilisateur et un message de bienvenue
      *
      * @param  InteractiveLoginEvent $event
      * @return void
@@ -34,6 +36,7 @@ class LoginListener implements EventSubscriberInterface
         /** @var User*/
         $user = $event->getAuthenticationToken()->getUser();
         $user->setLoginAt(new \DateTime());
+        $this->flash->add('success', 'Bienvenue '.$user->getUsername());
         $this->manager->flush();
     }
 }
