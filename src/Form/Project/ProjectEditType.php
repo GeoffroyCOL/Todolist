@@ -1,23 +1,19 @@
 <?php
 
-namespace App\Form\Task;
+namespace App\Form\Project;
 
-use App\Entity\Task;
 use App\Entity\Element;
-use App\Form\Task\TaskAddType;
+use App\Form\Project\ProjectAddType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-class TaskEditType extends AbstractType
+class ProjectEditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('status', ChoiceType::class, [
-                'label' => 'Status',
                 'label_attr' => [
                     'class' => 'fw-bold'
                 ],
@@ -25,26 +21,12 @@ class TaskEditType extends AbstractType
                 'expanded' => false,
                 'choices'  => $this->getStatus()
             ])
-            ->add('note', TextareaType::class, [
-                'required'  => false,
-                'label'     => 'Note Complémentaire',
-                'label_attr' => [
-                    'class' => 'fw-bold'
-                ],
-                'attr' => [
-                    'rows' => 6
-                ],
-                'help' => 'Optionel'
-            ])
         ;
     }
-    
-    /**
-     * @return string
-     */
-    public function getParent(): string
+
+    public function getParent()
     {
-        return TaskAddType::class;
+        return ProjectAddType::class;
     }
 
     /**
