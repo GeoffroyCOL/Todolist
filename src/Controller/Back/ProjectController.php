@@ -65,7 +65,14 @@ class ProjectController extends AbstractController
 
         if ($number != 0) {
             $pourcent = ($number_success / $number) * 100;
+            $project->setStatus('en cours');
         }
+
+        if ($pourcent == 100) {
+            $project->setStatus('terminé');
+        }
+
+        $this->projectService->persist($project);
 
         return $this->render('back/project/show.html.twig', [
             'project'   => $project,

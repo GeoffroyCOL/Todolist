@@ -17,6 +17,11 @@
                 class="fw-bold btn btn-sm btn-outline-danger">Supprimer profil
         </button>
     </div>
+
+    <div class="mt-5 d-grid gap-2 d-xl-block">
+        <a class="btn btn-sm btn-outline-primary fw-bold" href="{{ path('home') }}">Retour site</a>
+        <a class="btn btn-sm btn-secondary fw-bold text-white" href="{{ path('dashboard') }}">Mes projets</a>
+    </div>
 </section>
 
 {% include 'partials/_modal.html.twig' with {'entity': 'profil', 'id': app.user.id} %}
