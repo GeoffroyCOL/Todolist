@@ -62,7 +62,8 @@ class TaskController extends AbstractController
 
         return $this->render('back/task/management.html.twig', [
             'form'      => $form->createView(),
-            'action'    => 'ajouter'
+            'action'    => 'ajouter',
+            'component' => 'admin'
         ]);
     }
     
@@ -86,7 +87,8 @@ class TaskController extends AbstractController
 
         return $this->render('back/task/management.html.twig', [
             'form'      => $form->createView(),
-            'action'    => 'modifier'
+            'action'    => 'modifier',
+            'component' => 'admin'
         ]);
     }
     

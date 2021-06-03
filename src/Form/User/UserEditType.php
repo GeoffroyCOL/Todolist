@@ -15,10 +15,19 @@ class UserEditType extends AbstractType
     {
         $builder
             ->add('newPassword', PasswordType::class, [
-                'required' => false
+                'required' => false,
+                'label' => 'Nouveau mot de passe',
+                'label_attr' => [
+                    'class' => 'fw-bold'
+                ],
+                'help' => 'Votre mot d epasse doit contenir une majuscule, un nombre et 6 caractères minimum.'
             ])
             ->add('email', EmailType::class, [
-                'required' => false
+                'required' => false,
+                'label' => 'Adresse email',
+                'label_attr' => [
+                    'class' => 'fw-bold'
+                ],
             ])
         ;
     }
