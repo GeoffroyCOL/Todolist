@@ -98,7 +98,6 @@ class ProjectControllerTest extends WebTestCase
             "Pour l'ajout d'un nouveau projet"  => ['/admin/project/add', Response::HTTP_FOUND],
             "Pour la modification d'un projet"  => ['/admin/project/edit/1', Response::HTTP_FOUND],
             "Pour la suppression d'un projet"   => ['/admin/project/delete/1', Response::HTTP_FOUND],
-            "Pour la liste des projets"         => ['/admin/projects', Response::HTTP_FOUND],
             "Pour un projet"                    => ['/admin/project/1', Response::HTTP_FOUND]
         ];
     }
@@ -117,7 +116,6 @@ class ProjectControllerTest extends WebTestCase
             "Pour la modification d'un projet qui ne m'appartient pas"  => ['/admin/project/edit/2', Response::HTTP_FORBIDDEN],
             "Pour la suppression d'un projet qui m'appartient"          => ['/admin/project/delete/1', Response::HTTP_FOUND],
             "Pour la suppression d'un projet qui ne m'appartient pas"   => ['/admin/project/delete/2', Response::HTTP_FORBIDDEN],
-            "Pour la liste des projets"                                 => ['/admin/projects', Response::HTTP_OK],
             "Pour un projet qui m'appartient"                           => ['/admin/project/1', Response::HTTP_OK],
             "Pour un projet qui ne m'appartient pas"                    => ['/admin/project/2', Response::HTTP_FORBIDDEN]
         ];

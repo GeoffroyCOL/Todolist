@@ -24,22 +24,6 @@ class ProjectController extends AbstractController
         private TaskService $taskService
     )
     {}
-
-    /**
-     * @return Response
-     */
-    #[Route('/admin/projects', name: 'projects.list')] 
-    public function listProject(): Response
-    {
-        $user = $this->getUser();
-        $projects = $this->projectService->getProjectsByUser($user);
-
-        return $this->render('back/project/list.html.twig', [
-            'projects'      => $projects,
-            'current_page'  => 'projets',
-            'component'     => 'admin'
-        ]);
-    }
     
     /**
      * @param  Project $project
