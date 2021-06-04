@@ -33,7 +33,7 @@ class UserController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
-            //$this->userService->persist($user);
+            $this->userService->persist($user);
             $this->addFlash('success', 'Votre inscription à bien été prise en compte.');
 
             return $this->redirectToRoute('app_login');
